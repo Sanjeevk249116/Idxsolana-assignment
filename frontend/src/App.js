@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
+import AuthenticateRouter from "./routers/AuthenticateRouter";
+import { UnAuthenticateRouter } from "./routers/UnAuthenticateRouter";
+
 
 function App() {
-  return (
-    <div>
-      app
-    </div>
-  )
+  const token = localStorage.getItem("notes-token");
+  return token ? <AuthenticateRouter /> : <UnAuthenticateRouter />;
 }
 
-export default App
+export default App;
