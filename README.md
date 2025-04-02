@@ -2,6 +2,7 @@
 
 ## Overview
 This is a full-stack note-taking application that allows users to create, read, update, and delete notes. The application consists of a React.js front-end and a Node.js/Express.js back-end with a database for storing notes.
+When a user registers, a confirmation email is sent to their registered email address.
 
 ## Live URLs
 - **Front-End:** [IDX Solana Assignment Frontend](https://idxsolana-assignment.vercel.app/)
