@@ -26,22 +26,6 @@ This is a full-stack note-taking application that allows users to create, read, 
    - `POST /notes` - Create a new note.
    - `PUT /notes/:id` - Update an existing note.
    - `DELETE /notes/:id` - Delete a note.
-2. **Database:**
-   - Uses MongoDB (or another database of choice) to store notes.
-3. **Validation:**
-   - Ensures that title and content fields are not empty.
-
-## Requirements
-- **Front-End:** React.js
-- **Back-End:** Node.js & Express.js
-- **Database:** MongoDB or PostgreSQL
-- **Version Control:** Git & GitHub
-- **Responsive Design:** Ensures usability on different screen sizes
-- **Code Quality:** Clean and maintainable
-
-## Bonus Features
-- **Authentication & Authorization:** User authentication system
-- **Unit Testing:** Tests for both front-end and back-end
 
 ## Getting Started
 ### Prerequisites
