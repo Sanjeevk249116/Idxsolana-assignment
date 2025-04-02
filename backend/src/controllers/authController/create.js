@@ -3,6 +3,7 @@ const { ApiError } = require("../../utils/apiError");
 const { ApiResponse } = require("../../utils/apiResponse");
 const { asyncHandler } = require("../../utils/asyncHandler");
 const { checkMissingFields } = require("../../utils/checkMissingField");
+const { sendMailToUser } = require("../../utils/sendMail");
 
 const generateToken = async (userId) => {
   try {
@@ -58,12 +59,44 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
   });
   const accessToken = await generateToken(user._id);
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: emailId,
+    subject: "Welcome to NoteSphere!",
+    html: `
+      <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 
+            auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
+        <h2 style="text-align: center; color: #4CAF50;">Welcome to NoteSphere! 📝</h2>
+        <p>Hello ${name},</p>
+        <p>We're excited to have you on board! With NoteSphere, you can easily create, manage, and organize your notes all in one place.</p>
+  
+        <h3 style="color: #4CAF50;">Your Account Details:</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Email ID:</strong></td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${emailId}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ddd;"><strong>Temporary Password:</strong></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><strong style="color: red;">${password}</strong></td>
+          </tr>
+        </table>
+  
+        <p>🔐 <strong>Security Tip:</strong> Please change your password immediately after logging in to keep your account secure.</p>
+        
+        <p>✨ Start organizing your thoughts and ideas effortlessly. If you have any questions, feel free to reach out to our support team.</p>
+  
+        <p>Happy Note-Making!<br><strong> Sanjeev Kushwaha & Team</strong></p>
+      </div>
+    `,
+  };
+  await sendMailToUser(mailOptions);
   res.status(200).json(new ApiResponse(200, accessToken));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email, phoneNumber, password } = req.body;
-  if ((!email && !phoneNumber) || !password) {
+  const { userId, password } = req.body;
+  if (!userId || !password) {
     return res
       .status(400)
       .json(
@@ -72,7 +105,7 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const existUser = await userModels.findOne({
-    $or: [{ email }, { phoneNumber }],
+    $or: [{ email: userId }, { phoneNumber: userId }],
   });
 
   if (!existUser) {
@@ -87,7 +120,5 @@ const loginUser = asyncHandler(async (req, res) => {
   const accessToken = await generateToken(existUser._id);
   return res.status(200).json(new ApiResponse(200, accessToken));
 });
-
-
 
 module.exports = { registerUser, loginUser };
