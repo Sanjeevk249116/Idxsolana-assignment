@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 // import { logOut } from "../redux/action/auth";
@@ -7,8 +7,6 @@ import { Tooltip as ReactTooltip } from "react-tooltip";
 function Aside({ openAside, setOpenAside }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [logout, setLogout] = useState(false);
 
   const isMatchingRoute = (pathname, routes) => {
     return routes.some((route) => {
@@ -22,12 +20,6 @@ function Aside({ openAside, setOpenAside }) {
 
   const menuItemsForRoutes = [
     { route: "/", label: "Dashboard", icon: "dashboard", active: buyerRoute },
-    {
-      route: "/profile",
-      label: "Profile",
-      icon: "account_circle",
-      active: location.pathname === "/profile",
-    },
   ];
   console.log(openAside);
   return (

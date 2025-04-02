@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useMediaQuery } from "react-responsive";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useSelector } from "react-redux";
 
 function Header({ setOpenAside, openAside, userInfo }) {
-  const dispatch = useDispatch();
   const isDastop = useMediaQuery({ query: "(max-width: 1500px)" });
   const { profile } = useSelector((state) => state.profile);
 
@@ -36,22 +35,20 @@ function Header({ setOpenAside, openAside, userInfo }) {
           className="user-profile flex align-center mr-1"
           style={{ minWidth: isDastop && "250px" }}
         >
-   
-            <div className="flex align-center gap-1">
-              <img
-                style={{ border: "1px solid purple",borderRadius:"50px" }}
-                width={"40px"}
-                height={"40px"}
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt="profile "
-              />
+          <div className="flex align-center gap-1">
+            <img
+              style={{ border: "1px solid purple", borderRadius: "50px" }}
+              width={"40px"}
+              height={"40px"}
+              src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+              alt="profile "
+            />
 
-              <span>
-                <b className="semi-bold">{profile?.name}</b>
-                <p className="small-size grey-text ">{profile?.email}</p>
-              </span>
-            </div>
-        
+            <span>
+              <b className="semi-bold">{profile?.name}</b>
+              <p className="small-size grey-text ">{profile?.email}</p>
+            </span>
+          </div>
         </div>
       </div>
     </header>
