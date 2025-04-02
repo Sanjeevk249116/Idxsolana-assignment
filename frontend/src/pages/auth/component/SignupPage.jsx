@@ -136,9 +136,9 @@ function SignupPage() {
               </div>
             </div>
 
-            <div className="submit-btn mv-2 column flex align-center ">
+            <div className="submit-btns column flex align-center ">
               <button
-                className={`btn full-width mb-1 mt-1 ${
+                className={`btn full-width mt-1 ${
                   checkValidation() ? "disable-btn" : "enable-btn"
                 }`}
                 type="submit"
