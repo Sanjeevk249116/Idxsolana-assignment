@@ -5,13 +5,7 @@ export async function notifyError(msg, status = false) {
   if (status === 498 || status === 401 || status === 403) {
     if (!sessionExpiredNotified) {
       try {
-        localStorage.removeItem("note-token");
-        sessionExpiredNotified = true;
-        toast.error("Session expired. Please log in again.", {
-          hideProgressBar: true,
-          autoClose: 2000,
-        });
-
+        localStorage.removeItem("notes-token");
         window.location.href = "/";
         return;
       } catch (error) {
