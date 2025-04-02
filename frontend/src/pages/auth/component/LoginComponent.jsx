@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
-
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
+import { signupUser } from "../../../redux/action/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 function LoginComponent() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const email_ref = useRef()
-  //   const { loading } = useSelector((state) => state.account);
-  const loading = false;
+  const { loading } = useSelector((state) => state.loading);
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
 
   const checkValidation = () => {
-    if (email === "" || password === "") {
+    if (userId === "" || password === "") {
       return true;
     }
     return false;
@@ -25,8 +23,7 @@ function LoginComponent() {
 
   const loginWithEmail = (e) => {
     e.preventDefault();
-
-    // dispatch(loginUser(email, password));
+    dispatch(signupUser(userId, password));
   };
 
   useEffect(() => {
@@ -51,10 +48,10 @@ function LoginComponent() {
               <input
                 ref={email_ref}
                 className="browser-default "
-                placeholder="Enter your email or phone Number"
+                placeholder="Enter your userId or phone Number"
                 type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
                 required
               />
             </div>
@@ -83,9 +80,8 @@ function LoginComponent() {
             </div>
 
             <div
-              className={`submit-btn mt-1 column valign-wrapper justify-center ${
-                checkValidation() ? "disable-btn" : "enable-btn"
-              }`}
+              className={`submit-btn mt-1 column valign-wrapper justify-center ${checkValidation() ? "disable-btn" : "enable-btn"
+                }`}
             >
               <button
                 className="btn full-width p-1 "

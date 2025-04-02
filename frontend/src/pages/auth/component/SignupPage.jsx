@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ClipLoader } from "react-spinners";
 import { Link } from "react-router-dom";
 import { notifyError } from "../../../helper/helper";
+import { registerUser } from "../../../redux/action/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignupPage() {
+  const dispatch=useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
@@ -13,8 +15,8 @@ function SignupPage() {
   const [name, setName] = useState("");
   const [emailId, setEmailId] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const loading = false;
-
+  const {loading}=useSelector((state)=>state.loading)
+  
   const checkValidation = () => {
     if (
       password === "" ||
@@ -36,7 +38,7 @@ function SignupPage() {
     if (password !== confirmPassword) {
       return notifyError("Password do not match with confirm password");
     }
-    // dispatch(userDetailsToLogin(otpSessionId?.session, name, emailId, password));
+    dispatch(registerUser( name, emailId, password,phoneNumber));
   };
 
   return (
